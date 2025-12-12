@@ -15,7 +15,7 @@ class Driver(AbstractUser):
     license_number = models.CharField(max_length=255, unique=True)
 
     def get_absolute_url(self):
-        return reverse("taxi:driver_detail_view",
+        return reverse("taxi:driver-detail",
                        kwargs={"username": self.username})
 
 
@@ -27,4 +27,4 @@ class Car(models.Model):
     drivers = models.ManyToManyField(Driver, related_name="cars")
 
     def get_absolute_url(self):
-        return reverse("taxi:car_detail_view", args=[str(self.id)])
+        return reverse("taxi:car-detail", args=[str(self.id)])

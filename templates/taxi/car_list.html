@@ -12,7 +12,11 @@
 
   {% for car in car_list %}
   <tr>
-    <td><a href="{{ car.get_absolute_url }}">{{ car.id }}</a></td>
+    <td>
+      <a href="{{ car.get_absolute_url }}">
+        {{ car.id }}
+      </a>
+    </td>
     <td>{{ car.model }}</td>
     <td>{{ car.manufacturer.name }}</td>
   </tr>
