@@ -11,23 +11,23 @@ urlpatterns = [
 
     path("manufacturers/",
          ManufacturerListView.as_view(),
-         name="manufacturer_list"),
+         name="manufacturer-list"),
 
     path("cars/",
          CarListView.as_view(),
-         name="car_list"),
+         name="car-list"),
 
     path("drivers/<int:pk>/",
          DriverDetailView.as_view(),
-         name="driver_detail"),
+         name="driver-detail"),
 
     path("drivers/",
          DriverListView.as_view(),
-         name="driver_list"),
+         name="driver-list"),
 
     path("drivers/<str:username>/",
          DriverDetailView.as_view(),
-         name="driver_detail"),
+         name="driver-detail"),
 ]
 
 app_name = "taxi"
