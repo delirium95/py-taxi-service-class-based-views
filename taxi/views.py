@@ -42,4 +42,3 @@ class DriverDetailView(DetailView):
     model = Driver
     queryset = Driver.objects.prefetch_related("cars")
     context_object_name = "driver"
-
