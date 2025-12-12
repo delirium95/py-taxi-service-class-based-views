@@ -15,8 +15,7 @@ class Driver(AbstractUser):
     license_number = models.CharField(max_length=255, unique=True)
 
     def get_absolute_url(self):
-        return reverse("taxi:driver-detail",
-                       kwargs={"username": self.username})
+        return reverse("taxi:driver-detail", args=[str(self.id)])
 
 
 class Car(models.Model):
