@@ -10,11 +10,13 @@ class Manufacturer(models.Model):
     class Meta:
         ordering = ("name",)
 
+
 class Driver(AbstractUser):
     license_number = models.CharField(max_length=255, unique=True)
 
     def get_absolute_url(self):
-        return reverse("taxi:driver_detail_view", args=[self.username])
+        return reverse("taxi:driver_detail_view",
+                       kwargs={"username": self.username})
 
 
 class Car(models.Model):
@@ -25,4 +27,4 @@ class Car(models.Model):
     drivers = models.ManyToManyField(Driver, related_name="cars")
 
     def get_absolute_url(self):
-        return reverse("taxi:car_detail_view", kwargs={"username": self.username})
+        return reverse("taxi:car_detail_view", args=[str(self.id)])

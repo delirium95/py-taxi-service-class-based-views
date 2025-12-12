@@ -1,35 +1,32 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-
 from taxi.models import Driver, Car, Manufacturer
 
 
 def index(request):
     """View function for the home page of the site."""
-
     context = {
         "num_drivers": Driver.objects.count(),
         "num_cars": Car.objects.count(),
         "num_manufacturers": Manufacturer.objects.count(),
     }
-
-    return render(request, "taxi/index.html", context=context)
+    return render(request, "taxi/index.html", context)
 
 
 class ManufacturerListView(ListView):
     model = Manufacturer
-    queryset = Manufacturer.objects.all()
     paginate_by = 5
 
 
 class CarListView(ListView):
     model = Car
-    queryset = Car.objects.all()
     paginate_by = 5
 
 
 class CarDetailView(DetailView):
-    model = Car.objects.select_related("cars")
+    model = Car
+    queryset = (Car.objects.
+                select_related("manufacturer").prefetch_related("drivers"))
 
 
 class DriverListView(ListView):
@@ -39,4 +36,6 @@ class DriverListView(ListView):
 
 class DriverDetailView(DetailView):
     model = Driver
-    queryset = Car.objects.prefetch_related("drivers")
+    queryset = Driver.objects.prefetch_related("cars")
+    slug_field = "username"
+    slug_url_kwarg = "username"
