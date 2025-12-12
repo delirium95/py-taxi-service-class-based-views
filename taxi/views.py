@@ -16,22 +16,27 @@ def index(request):
 class ManufacturerListView(ListView):
     model = Manufacturer
     paginate_by = 5
+    context_object_name = "manufacturer_list"
 
 
 class CarListView(ListView):
     model = Car
     paginate_by = 5
+    context_object_name = "car_list"
 
 
 class CarDetailView(DetailView):
     model = Car
-    queryset = (Car.objects.
-                select_related("manufacturer").prefetch_related("drivers"))
+    queryset = (Car.objects
+                  .select_related("manufacturer")
+                  .prefetch_related("drivers"))
+    context_object_name = "car"
 
 
 class DriverListView(ListView):
     model = Driver
     paginate_by = 5
+    context_object_name = "driver_list"
 
 
 class DriverDetailView(DetailView):
@@ -39,3 +44,4 @@ class DriverDetailView(DetailView):
     queryset = Driver.objects.prefetch_related("cars")
     slug_field = "username"
     slug_url_kwarg = "username"
+    context_object_name = "driver"
